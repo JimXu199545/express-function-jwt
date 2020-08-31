@@ -11,7 +11,7 @@ async function connect() {
   const accountName = "mongodb";
   const databaseName = "User";
   const key = encodeURIComponent(
-    "fimQdjqIqmDjcFbs5dR8UCJbusTqT1uK9j1xMM9zKTrDWa9EdPvRfWrYkBqVhWnuU2Owix9hluUArRB7SIO6Vw=="
+    ""
   );
   const port = 10255;
   const mongoUri = `mongodb://${accountName}:${key}@${accountName}.documents.azure.com:${port}/${databaseName}?ssl=true`;
