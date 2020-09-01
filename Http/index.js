@@ -3,8 +3,6 @@ const bodyParser = require("body-parser");
 const createHandler = require("azure-function-express").createHandler;
 const express = require("express");
 const app = express();
-const AuthUtils = require("../untils/AuthUtils");
-const User = require("../moudle/UserModel");
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
