@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const { Schema } = mongoose;
@@ -40,47 +39,7 @@ const userSchema = Schema(
   }
 );
 
-// pre saving user
-userSchema.pre("save", function (next) {
-  // eslint-disable-next-line no-invalid-this
-  const user = this;
 
-  // only hash the password if it has been modified (or is new)
-  // eslint-disable-next-line no-invalid-this
-  if (this.isModified("password") || this.isNew) {
-    bcrypt.genSalt(10, function (error, salt) {
-      // handle error
-      if (error) return next(error);
-
-      // hash the password using our new salt
-      bcrypt.hash(user.password, salt, function (error, hash) {
-        // handle error
-        if (error) return next(error);
-
-        // override the cleartext password with the hashed one
-        user.password = hash;
-        next();
-      });
-    });
-  } else {
-    return next();
-  }
-});
-
-// post saving user
-userSchema.post("save", function (user, next) {
-  next();
-});
-
-// compare password
-userSchema.methods.comparePassword = function (passw, cb) {
-  bcrypt.compare(passw, this.password, function (err, isMatch) {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, isMatch);
-  });
-};
 
 // pass passport-local-mongoose plugin
 // in order to handle password hashing
